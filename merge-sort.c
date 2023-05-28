@@ -24,25 +24,34 @@ void merge(int vetor[], int start, int mid, int end){
     }
 }
 
-void mergesort(int vetor[], int start, int end){
+void mergeSort(int vetor[], int start, int end){
     if (start < end)
     {
         int mid = ((start+end)/2);
-        mergesort(vetor,start,mid);
-        mergesort(vetor, mid+1,end);
+        mergeSort(vetor,start,mid);
+        mergeSort(vetor, mid+1,end);
         merge(vetor,start,mid,end);
     }
 }
 
 int main(int argc, char const *argv[])
 {
-    int v [] = {8,7,6,5,4,3,2,1};
-    int tamanho = sizeof(v) / sizeof(v[0]);
-    mergesort(v,0,tamanho - 1);
-    for (int i = 0; i < 8; i++)
-    {
-        printf("%d ", v[i]);
-    }
-    printf("\n");
+
+struct timespec a, b;
+    unsigned int t, tamanho;
+    int i, *A;
+    tamanho = atoi(argv[1]);
+    A = (int *) malloc(tamanho * sizeof(int));
+    srand(time(NULL));
+    for (i = 0; i < tamanho; i++)
+        A[i] = rand();
+
+    clock_gettime(CLOCK_MONOTONIC, &b);
+        mergeSort(A, 0, tamanho - 1);
+    clock_gettime(CLOCK_MONOTONIC, &a);
+
+    t = (a.tv_sec * 1e9 + a.tv_nsec) - (b.tv_sec * 1e9 + b.tv_nsec);
+    printf("%u\n", t);
+
     return 0;
 }
