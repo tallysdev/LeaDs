@@ -1,6 +1,8 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <linux/time.h>
+#include <bits/time.h>
 
 void selection_sort(int A[], int tamanho) {
     int min;
